@@ -78,29 +78,33 @@ button {
 }
 .modal-header {
   background-color: #121212;
+  border: none;
 }
 .modal-body {
   background-color: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
 }
 .modal-footer {
   background-color: #121212;
   display: flex;
   justify-content: center;
+  border: none;
 }
 .btn-close {
   background-color: white;
 }
 .btn-2C2P{
-  width: 150px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
   font-size: 30px;
+  margin-bottom: 30px;
 }
 
 .btn-cls{
-  width: 300px;
+  width: 250px;
 }
 .dropdown{
   width: 300px;
