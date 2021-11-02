@@ -38,59 +38,7 @@ for (const i of drul2List) {
   });
 }
 
-// btn_2C2P.addEventListener("click", () => {
-//   const dataToSend = JSON.stringify(paymentToken);
-//   fetch("/demo2c2p/generateJWTToken", {
-//     credentials: "same-origin",
-//     mode: "same-origin",
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: dataToSend,
-//   })
-//     .then((response) => {
-//       return response.json();
-//     })
-//     .then((result)=>{
-//         console.log("result");
-//     })
-// });
-
-// btn_2C2P.addEventListener("click", () => {
-//   // Creating a XHR object
-//   let xhr = new XMLHttpRequest();
-//   let url = "../server/src/main/java/com/test2c2p/sample/Server.java";
-
-//   // open a connection
-//   xhr.open("POST", url, true);
-
-//   // Set the request header i.e. which type of content you are sending
-//   xhr.setRequestHeader("Content-Type", "application/json");
-
-//   // Create a state change callback
-//   xhr.onreadystatechange = function () {
-//     if (xhr.readyState === 4 && xhr.status === 200) {
-//       // Print received data from server
-//       alert(this.responseText);
-//     }
-//   };
-
-//   // Converting JSON data to string
-//   var data = JSON.stringify(paymentToken);
-
-//   // Sending data with the request
-//   xhr.send(data);
-// });
-
 function submitRequestParameter() {
-  // const postData = {
-  //   merchantID: "JT01",
-  //   invoiceNo: "1523953661",
-  //   description: desc,
-  //   amount: parseFloat(amt).toFixed(2),
-  //   currencyCode: "SGD",
-  //   paymentChannel: ["CC"],
-  // };
-
   $.ajax({
     url: encodeURI("/demo2c2p/generateJWTToken"),
     type: "POST",
