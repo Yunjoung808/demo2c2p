@@ -23,7 +23,7 @@ let paymentToken = {
 };
 
 for (const i of drul1List) {
-  let ctx = i.textContent;
+  let ctx = i.textContent.split('-')[0].replace(' ', '');
   i.addEventListener("click", () => {
     drPlaceholder1.textContent = ctx;
     paymentToken.currencyCode = ctx;
@@ -31,7 +31,7 @@ for (const i of drul1List) {
 }
 
 for (const i of drul2List) {
-  let ctx = i.textContent;
+  let ctx = i.textContent.split('-')[0].replace(' ', '');
   i.addEventListener("click", () => {
     drPlaceholder2.textContent = ctx;
     paymentToken.paymentChannel.push(ctx);
