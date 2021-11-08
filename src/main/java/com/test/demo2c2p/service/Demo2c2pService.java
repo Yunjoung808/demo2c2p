@@ -36,7 +36,7 @@ public class Demo2c2pService {
         payload.put("description",request2c2pDto.getDescription());
         payload.put("amount",request2c2pDto.getAmount());
         payload.put("currencyCode",request2c2pDto.getCurrencyCode());
-        payload.put("paymentChannel","CC");
+        payload.put("paymentChannel",request2c2pDto.getPaymentChannel());
         
 
         System.out.println(payload);
