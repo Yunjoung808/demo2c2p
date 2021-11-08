@@ -21,9 +21,7 @@ public class Demo2C2PController {
     
     @PostMapping("/generateJWTToken")
     public ResponseEntity<RestResponse> requestTo2c2p(@RequestBody Request2c2pDto request2c2pDto){
-        
         demo2c2pService.generateJWTToken(request2c2pDto);
-
         return ResponseEntity.ok(RestResponse.success());
     }
     
