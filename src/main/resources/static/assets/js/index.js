@@ -34,6 +34,7 @@ for (const i of drul2List) {
   let ctx = i.textContent.split('-')[0].replace(' ', '');
   i.addEventListener("click", () => {
     drPlaceholder2.textContent = ctx;
+    paymentToken.paymentChannel = [];
     paymentToken.paymentChannel.push(ctx);
   });
 }
