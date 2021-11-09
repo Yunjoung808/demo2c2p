@@ -121,3 +121,6 @@ button {
 .dr2 {
   margin-right: 5px;
 }
+.drul2 > li {
+  display: none;
+}

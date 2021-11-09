@@ -13,6 +13,8 @@ amt = amt.substring(amt.length - 2);
 
 let btn_2C2P = document.querySelector(".btn-2C2P");
 
+let curCode = drPlaceholder1.textContent;
+
 let paymentToken = {
   merchantID: "JT01",
   invoiceNo: "1523953661",
@@ -25,8 +27,12 @@ let paymentToken = {
 for (const i of drul1List) {
   let ctx = i.textContent.split('-')[0].replace(' ', '');
   i.addEventListener("click", () => {
+    unfilter();
+    drPlaceholder2.textContent = 'PaymentChannel';
     drPlaceholder1.textContent = ctx;
     paymentToken.currencyCode = ctx;
+    drPlaceholder2.removeAttribute('disabled');
+    filtering(ctx)
   });
 }
 
@@ -35,8 +41,22 @@ for (const i of drul2List) {
   i.addEventListener("click", () => {
     drPlaceholder2.textContent = ctx;
     paymentToken.paymentChannel = [];
-    paymentToken.paymentChannel.push(ctx);
+    paymentToken.paymentChannel.push(ctx);   
   });
+}
+
+function filtering(curCode){
+  for (const i of drul2List) {    
+    if (i.classList.contains(curCode) || i.classList.contains('gl')) {
+      i.style.display = 'block';
+    }
+  }
+}
+
+function unfilter(){
+  for (const i of drul2List) {
+    i.style.display = 'none';
+  }
 }
 
 function submitRequestParameter() {
