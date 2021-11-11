@@ -31,9 +31,14 @@ public class HttpService {
         return con;
     }
 
-    public String getResponse(JSONObject requestData, HttpsURLConnection con) throws IOException {
-        StringBuffer response = new StringBuffer();
+    public String getResponse(HttpsURLConnection con, String token) throws IOException {
 
+        JSONObject requestData = new JSONObject();
+        requestData.put("payload", token);
+
+        log.debug("requestData={}", requestData);
+
+        StringBuffer responseData = new StringBuffer();
         try (DataOutputStream wr = new DataOutputStream(con.getOutputStream());
              BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
 
@@ -42,12 +47,12 @@ public class HttpService {
 
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
+                responseData.append(inputLine);
             }
 
-            log.debug("response={}", response);
+            log.debug("responseData={}", responseData);
         }
 
-        return response.toString();
+        return responseData.toString();
     }
 }
