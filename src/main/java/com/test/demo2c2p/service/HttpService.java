@@ -19,26 +19,16 @@ public class HttpService {
     @Value("${demo2c2p.endPoint}")
     private String endPoint;
 
-    public HttpsURLConnection getConnection() throws Exception {
-        URL obj = new URL(endPoint);
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/*+json");
-        con.setRequestProperty("Accept", "text/plain");
-        con.setDoOutput(true);
-
-        return con;
-    }
-
-    public String getResponse(HttpsURLConnection con, String token) throws IOException {
-
+    public String sendRequest(String token) throws Exception {
         JSONObject requestData = new JSONObject();
         requestData.put("payload", token);
-
         log.debug("requestData={}", requestData);
+        return send(getConnection(), requestData);
+    }
 
+    private String send(HttpsURLConnection con, JSONObject requestData) throws IOException {
         StringBuffer responseData = new StringBuffer();
+
         try (DataOutputStream wr = new DataOutputStream(con.getOutputStream());
              BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
 
@@ -54,5 +44,17 @@ public class HttpService {
         }
 
         return responseData.toString();
+    }
+
+    private HttpsURLConnection getConnection() throws Exception {
+        URL obj = new URL(endPoint);
+        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/*+json");
+        con.setRequestProperty("Accept", "text/plain");
+        con.setDoOutput(true);
+
+        return con;
     }
 }

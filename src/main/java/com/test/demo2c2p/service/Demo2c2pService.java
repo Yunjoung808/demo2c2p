@@ -3,10 +3,8 @@ package com.test.demo2c2p.service;
 import com.test.demo2c2p.api.request.GenerateJWTTokenRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.util.HashMap;
 
 @Slf4j
@@ -21,9 +19,8 @@ public class Demo2c2pService {
 
         HashMap<String, Object> payload = makePayload(generateJWTTokenRequest);
         String token = jwtService.getToken(payload);
+        String response = httpService.sendRequest(token);
 
-        HttpsURLConnection con = httpService.getConnection();
-        String response = httpService.getResponse(con, token);
         log.debug("response={}", response);
 
         jwtService.process();
