@@ -22,12 +22,8 @@ public class Demo2c2pService {
         HashMap<String, Object> payload = makePayload(generateJWTTokenRequest);
         String token = jwtService.getToken(payload);
 
-        JSONObject requestData = new JSONObject();
-        requestData.put("payload", token);
-        log.debug("requestData={}", requestData);
-
         HttpsURLConnection con = httpService.getConnection();
-        String response = httpService.getResponse(requestData, con);
+        String response = httpService.getResponse(con, token);
         log.debug("response={}", response);
 
         jwtService.process();
