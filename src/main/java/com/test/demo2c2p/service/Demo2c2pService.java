@@ -35,7 +35,7 @@ public class Demo2c2pService {
     private HashMap<String, Object> makePayload(GenerateJWTTokenRequest generateJWTTokenRequest) {
         HashMap<String, Object> payload = new HashMap<>();
         
-        generateJWTTokenRequest.setInvoiceNo("1234123412341259");
+        generateJWTTokenRequest.setInvoiceNo("1234123412341264");
         //generateJWTTokenRequest.setPaymentChannel(Arrays.asList("GRAB"));
         payload.put("merchantID", generateJWTTokenRequest.getMerchantID());
         payload.put("invoiceNo", generateJWTTokenRequest.getInvoiceNo());
