@@ -20,15 +20,16 @@ public class Demo2c2pService {
         HashMap<String, Object> payload = makePayload(generateJWTTokenRequest);
         String token = jwtService.getToken(payload);
         httpService.sendRequest(token);
+        
         String requestData = httpService.sendRequest(token);
-        jwtService.process();
+        jwtService.process(requestData);
 
     }
 
     private HashMap<String, Object> makePayload(GenerateJWTTokenRequest generateJWTTokenRequest) {
         HashMap<String, Object> payload = new HashMap<>();
         
-        generateJWTTokenRequest.setInvoiceNo("1234123412341235");
+        generateJWTTokenRequest.setInvoiceNo("1234123412341239");
         payload.put("merchantID", generateJWTTokenRequest.getMerchantID());
         payload.put("invoiceNo", generateJWTTokenRequest.getInvoiceNo());
         payload.put("description", generateJWTTokenRequest.getDescription());

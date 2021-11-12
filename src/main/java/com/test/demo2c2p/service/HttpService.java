@@ -23,7 +23,8 @@ public class HttpService {
         JSONObject requestData = new JSONObject();
         requestData.put("payload", token);
         log.debug("requestData={}", requestData);
-        return send(getConnection(), requestData);
+        return getConnection(requestData);
+        
     }
 
     private String send(HttpsURLConnection con, JSONObject requestData) throws IOException {
@@ -34,27 +35,48 @@ public class HttpService {
 
             wr.writeBytes(requestData.toString());
             wr.flush();
-
+            wr.close();
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 responseData.append(inputLine);
             }
-
+            in.close();
             log.debug("responseData={}", responseData);
         }
 
         return responseData.toString();
     }
 
-    private HttpsURLConnection getConnection() throws Exception {
-        URL obj = new URL(endPoint);
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+    private String getConnection(JSONObject requestData) throws Exception {
+        try
+            {
+            URL obj = new URL(endPoint);
+            HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/*+json");
-        con.setRequestProperty("Accept", "text/plain");
-        con.setDoOutput(true);
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/*+json");
+            con.setRequestProperty("Accept", "text/plain");
 
-        return con;
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(requestData.toString());
+            wr.flush();
+            wr.close();
+
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            return response.toString();
+
+            }catch(Exception e){
+            e.printStackTrace();
+            }
+        return "error";
     }
 }

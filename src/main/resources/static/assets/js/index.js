@@ -65,4 +65,7 @@ function submitRequestParameter() {
     type: "POST",
     contentType: "application/json",
     data: JSON.stringify(paymentToken),
+    success: function (result) { 
+        window.location.replace("http://localhost:8080/demo2c2p/redirect");
+  }, 
   });}
