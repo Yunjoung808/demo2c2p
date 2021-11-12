@@ -17,10 +17,10 @@ let curCode = drPlaceholder1.textContent;
 
 let paymentToken = {
   merchantID: "JT01",
-  invoiceNo: "1523953661",
+  invoiceNo: "15221233953661",
   description: desc,
   amount: parseFloat(amt).toFixed(2),
-  currencyCode: 0,
+  currencyCode: "KRW",
   paymentChannel: [],
 };
 

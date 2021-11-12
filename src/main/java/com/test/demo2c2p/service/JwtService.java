@@ -28,7 +28,7 @@ public class JwtService {
     public void process() throws Exception {
         log.info("==========START :: processJWTToken ===============");
 
-        String responsePayload = "{\"payload\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3ZWJQYXltZW50VXJsIjoiaHR0cHM6Ly9zYW5kYm94LXBndy11aS4yYzJwLmNvbS9wYXltZW50LzQuMS8jL3Rva2VuL2tTQW9wczlad2hvczhoU1RTZUxUVWNKMFVRaVZhYTZ2Qmk1YXo5UWlmRUUlMmJSZDY1Y00zZE55ZjRXNWFZVmlxemthajVzTGRUbW9lSSUyYjAyMSUyZllyb0tEYjRSbVZvcWc4YVAlMmJoT0VKRDB0JTJiZyUzZCIsInBheW1lbnRUb2tlbiI6ImtTQW9wczlad2hvczhoU1RTZUxUVWNKMFVRaVZhYTZ2Qmk1YXo5UWlmRUUrUmQ2NWNNM2ROeWY0VzVhWVZpcXprYWo1c0xkVG1vZUkrMDIxL1lyb0tEYjRSbVZvcWc4YVAraE9FSkQwdCtnPSIsInJlc3BDb2RlIjoiMDAwMCIsInJlc3BEZXNjIjoiU3VjY2VzcyJ9.0YQthKwZEjR9giHWc3mkce9ngQnCNi0asXFWPHP_81k\"}";
+        String responsePayload = "{\"payload\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3ZWJQYXltZW50VXJsIjoiaHR0cHM6Ly9zYW5kYm94LXBndy11aS4yYzJwLmNvbS9wYXltZW50LzQuMS8jL3Rva2VuL2tTQW9wczlad2hvczhoU1RTZUxUVWQ3JTJiOENvTkFEM2lFN0p1enpIOVpjNlhUWE9zVWV2aFlGJTJmS0F3S0U3QlRrYWNJNFJEUzQwTTIzSmtvZUxEbUt5N1BPcm4lMmY1STRCbWxDemkxRXdxdFU0JTNkIiwicGF5bWVudFRva2VuIjoia1NBb3BzOVp3aG9zOGhTVFNlTFRVZDcrOENvTkFEM2lFN0p1enpIOVpjNlhUWE9zVWV2aFlGL0tBd0tFN0JUa2FjSTRSRFM0ME0yM0prb2VMRG1LeTdQT3JuLzVJNEJtbEN6aTFFd3F0VTQ9IiwicmVzcENvZGUiOiIwMDAwIiwicmVzcERlc2MiOiJTdWNjZXNzIn0.XGoTRAEhaCytQ9DPjXxsGw7vNZJUanXl-Z7r1u25hVY\"}";
         JSONParser parser = new JSONParser();
         JSONObject responseJSON = (JSONObject) parser.parse(responsePayload);
         String responseToken = responseJSON.get("payload").toString();
@@ -38,7 +38,6 @@ public class JwtService {
 
         //decode encoded payload
         Map<String, Claim> responseData = getDecodedJWT(responseToken);
-
         String paymentToken = responseData.get("paymentToken").toString();
 
         log.debug("responseData={}", responseData);
