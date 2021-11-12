@@ -15,6 +15,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -25,19 +28,19 @@ public class Demo2C2PController {
 
     @PostMapping("/generateJWTToken")
     public ResponseEntity<RestResponse> requestTo2c2p(@RequestBody GenerateJWTTokenRequest generateJWTTokenRequest) throws Exception {
-        demo2c2pService.generateJWTToken(generateJWTTokenRequest);
-        URI redirectUri = new URI("htts://www.naver.com");
+        String data = demo2c2pService.generateJWTToken(generateJWTTokenRequest);
+        /*URI redirectUri = new URI(data);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(redirectUri);
-        return new ResponseEntity<>(headers,HttpStatus.FOUND);
+        URL url = new URL(data);
+        URLConnection conn = url.openConnection(); 
+        */
+        URI redirectUri = new URI(data);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(redirectUri);
+        return new ResponseEntity<>(headers,HttpStatus.OK);
     }
 
-    @RequestMapping("/redirect")
-    public RedirectView localRedirect() {
-    RedirectView redirectView = new RedirectView();
-    redirectView.setUrl("http://www.yahoo.com");
-    return redirectView;
-}
 
 
     

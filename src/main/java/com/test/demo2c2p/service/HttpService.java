@@ -23,7 +23,30 @@ public class HttpService {
         JSONObject requestData = new JSONObject();
         requestData.put("payload", token);
         log.debug("requestData={}", requestData);
-        return getConnection(requestData);
+        return getConnection(requestData,endPoint);
+        
+    }
+
+    public String doPayment(String paymentToken) throws Exception {
+        log.info("=========================about to start payment ==============");
+        JSONObject requestData = new JSONObject();
+        log.debug(paymentToken);
+        requestData.put("paymentToken",paymentToken.substring(1,paymentToken.length()-1));
+
+        JSONObject customer = new JSONObject();
+        customer.put("channelCode","GRAB");
+        
+        JSONObject data = new JSONObject();
+        data.put("name","Terrance");
+        data.put("email","terrance.tay@2c2p.com");
+
+        JSONObject payment = new JSONObject();
+        payment.put("code",customer);
+        payment.put("data",data);
+        requestData.put("payment",payment);
+
+        log.debug("requestData ={}",requestData);
+        return getConnection(requestData,"https://sandbox-pgw.2c2p.com/payment/4.1/Payment");
         
     }
 
@@ -47,7 +70,7 @@ public class HttpService {
         return responseData.toString();
     }
 
-    private String getConnection(JSONObject requestData) throws Exception {
+    private String getConnection(JSONObject requestData,String endPoint) throws Exception {
         try
             {
             URL obj = new URL(endPoint);

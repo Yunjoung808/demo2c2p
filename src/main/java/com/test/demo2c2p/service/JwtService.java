@@ -25,7 +25,8 @@ public class JwtService {
         return JWT.create().withPayload(payload).sign(getAlgorithm());
     }
 
-    public void process(String responsePayload) throws Exception {
+
+    public String process(String responsePayload) throws Exception {
         log.info("==========START :: processJWTToken ===============");
 
         JSONParser parser = new JSONParser();
@@ -42,6 +43,7 @@ public class JwtService {
         log.debug("paymentToken={}", paymentToken);
         log.debug("webPaymentUrl={}", webPaymentUrl);
         log.info("==========END :: processJWTToken ===============");
+        return paymentToken;
     }
 
     private Map<String, Claim> getDecodedJWT(String responseToken) {
