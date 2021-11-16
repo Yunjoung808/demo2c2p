@@ -41,11 +41,12 @@ public class JwtService {
         log.debug("responseData={}",responseData);
         String paymentToken = responseData.get("paymentToken").toString();
         String webPaymentUrl = responseData.get("webPaymentUrl").toString();
+        return webPaymentUrl;
 
-        log.debug("paymentToken={}", paymentToken);
-        log.debug("webPaymentUrl={}", webPaymentUrl);
-        log.info("==========END :: processJWTToken ===============");
-        return paymentToken;
+        // log.debug("paymentToken={}", paymentToken);
+        // log.debug("webPaymentUrl={}", webPaymentUrl);
+        // log.info("==========END :: processJWTToken ===============");
+        // return paymentToken;
     }
 
     private Map<String, Claim> getDecodedJWT(String responseToken) {

@@ -47,15 +47,17 @@ public class Demo2c2pService {
         HashMap<String, Object> payload = makePayload(generateJWTTokenRequest);
         String token = jwtService.getToken(payload);
         String requestData = httpService.sendRequest(token);
-        String paymentToken = jwtService.process(requestData);
-        String channelCode = generateJWTTokenRequest.getPaymentChannel().get(0);
-        String result = httpService.doPayment(paymentToken,channelCode);
-        JSONParser parser = new JSONParser();
-        JSONObject responseJSON = (JSONObject) parser.parse(result);
-        log.debug("\nresult = {}\n\n",result);
-        String data = responseJSON.get("data").toString();
+        String url = jwtService.process(requestData);
+        return url;
+        // String paymentToken = jwtService.process(requestData);
+        // String channelCode = generateJWTTokenRequest.getPaymentChannel().get(0);
+        // String result = httpService.doPayment(paymentToken,channelCode);
+        // JSONParser parser = new JSONParser();
+        // JSONObject responseJSON = (JSONObject) parser.parse(result);
+        // log.debug("\nresult = {}\n\n",result);
+        // String data = responseJSON.get("data").toString();
 
-        return data;
+        // return data;
 
     }
 
@@ -71,7 +73,7 @@ public class Demo2c2pService {
         payload.put("description", generateJWTTokenRequest.getDescription());
         payload.put("amount", generateJWTTokenRequest.getAmount());
         payload.put("currencyCode", generateJWTTokenRequest.getCurrencyCode());
-        payload.put("paymentChannel", generateJWTTokenRequest.getPaymentChannel());
+        //payload.put("paymentChannel", generateJWTTokenRequest.getPaymentChannel());
 
         log.debug("payload to server={},", payload);
         return payload;

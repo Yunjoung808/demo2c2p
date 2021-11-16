@@ -34,14 +34,16 @@ public class HttpService {
         requestData.put("paymentToken",paymentToken.substring(1,paymentToken.length()-1));
 
         JSONObject customer = new JSONObject();
-        customer.put("channelCode",channelCode);
-
+        // customer.put("channelCode",channelCode);
+        customer.put("channelCode","TRUEMONEY");
+        
         //requestData.put("clientID","S125KJH3ITF323A5S6725134267F4SD2");
         //requestData.put("clientID","E380BEC2BFD727A4B6845133519F3AD7");
 
         JSONObject data = new JSONObject();
         data.put("name","sky");
         data.put("email","sky@eximbay.com");
+        data.put("mobileNo","+660008683501");
         JSONObject payment = new JSONObject();
         payment.put("code",customer);
         payment.put("data",data);

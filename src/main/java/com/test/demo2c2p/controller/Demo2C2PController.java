@@ -38,7 +38,9 @@ public class Demo2C2PController {
         URL url = new URL(data);
         URLConnection conn = url.openConnection(); 
         */
-        URI redirectUri = new URI(data);
+        String newurl = data.substring(1,data.length()-1);
+        URI redirectUri = new URI(newurl);
+        System.out.println("redirectUri");
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(redirectUri);
         return new ResponseEntity<>(headers,HttpStatus.OK);
