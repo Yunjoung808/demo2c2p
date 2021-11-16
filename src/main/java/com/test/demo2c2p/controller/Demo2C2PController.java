@@ -2,15 +2,18 @@ package com.test.demo2c2p.controller;
 
 import com.test.demo2c2p.api.response.RestResponse;
 
-
+import com.test.demo2c2p.api.request.CancelRequest;
 import com.test.demo2c2p.api.request.GenerateJWTTokenRequest;
 import com.test.demo2c2p.service.Demo2c2pService;
+import com.test.demo2c2p.api.response.RedirectResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,7 +42,50 @@ public class Demo2C2PController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(redirectUri);
         return new ResponseEntity<>(headers,HttpStatus.OK);
+
+
     }
+
+    @PostMapping("/paymentconfirmation")
+    public ResponseEntity<RestResponse> redirectPayment(@RequestBody RedirectResponse redirectResponse) throws Exception{
+        demo2c2pService.parseDetails(redirectResponse);
+
+        URI redirectUri = new URI("/redirected");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(redirectUri);
+        System.out.println("im here");
+        return new ResponseEntity<>(headers,HttpStatus.OK);
+    }
+    @PostMapping("/cancel")
+    public ResponseEntity<RestResponse> cancelPayment(@RequestBody CancelRequest cancelRequest) throws Exception{
+        String result = demo2c2pService.sendCancelRequest(cancelRequest);
+        System.out.println(result);
+        URI redirectUri = new URI("/redirected");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(redirectUri);
+        System.out.println("im here");
+        return new ResponseEntity<>(headers,HttpStatus.OK);
+    }
+
+/*
+    @PostMapping("/paymentconfirmation")
+    public ModelAndView redirectPayment(@RequestBody RedirectResponse redirectResponse) throws Exception{
+        demo2c2pService.parseDetails(redirectResponse);
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ModelAndView("redirect:/redirected");
+    }
+    */
+
+    @GetMapping("/redirected")
+    public ModelAndView whaaaaa() throws Exception{
+        System.out.println("i'm hereasss");
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("cancel");
+        return mv;
+    }
+
+
 
 
 

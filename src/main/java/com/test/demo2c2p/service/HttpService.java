@@ -35,11 +35,13 @@ public class HttpService {
 
         JSONObject customer = new JSONObject();
         customer.put("channelCode","GRAB");
-        
-        JSONObject data = new JSONObject();
-        data.put("name","Terrance");
-        data.put("email","terrance.tay@2c2p.com");
 
+        //requestData.put("clientID","S125KJH3ITF323A5S6725134267F4SD2");
+        //requestData.put("clientID","E380BEC2BFD727A4B6845133519F3AD7");
+
+        JSONObject data = new JSONObject();
+        data.put("name","sky");
+        data.put("email","sky@eximbay.com");
         JSONObject payment = new JSONObject();
         payment.put("code",customer);
         payment.put("data",data);
@@ -47,6 +49,17 @@ public class HttpService {
 
         log.debug("requestData ={}",requestData);
         return getConnection(requestData,"https://sandbox-pgw.2c2p.com/payment/4.1/Payment");
+        
+    }
+
+    public String doCancellation (String paymentToken, String clientID) throws Exception {
+        log.info("=========================about to start payment ==============");
+        JSONObject requestData = new JSONObject();
+        log.debug(paymentToken);
+        requestData.put("paymentToken",paymentToken);
+        requestData.put("clientID",clientID);
+        log.debug("requestData ={}",requestData);
+        return getConnection(requestData,"https://sandbox-pgw.2c2p.com/payment/4.1/canceltransaction");
         
     }
 
