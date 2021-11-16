@@ -38,8 +38,10 @@ public class JwtService {
 
         //decode encoded payload
         Map<String, Claim> responseData = getDecodedJWT(responseToken);
+        log.debug("responseData={}",responseData);
         String paymentToken = responseData.get("paymentToken").toString();
         String webPaymentUrl = responseData.get("webPaymentUrl").toString();
+
         log.debug("paymentToken={}", paymentToken);
         log.debug("webPaymentUrl={}", webPaymentUrl);
         log.info("==========END :: processJWTToken ===============");

@@ -27,14 +27,14 @@ public class HttpService {
         
     }
 
-    public String doPayment(String paymentToken) throws Exception {
+    public String doPayment(String paymentToken,String channelCode) throws Exception {
         log.info("=========================about to start payment ==============");
         JSONObject requestData = new JSONObject();
         log.debug(paymentToken);
         requestData.put("paymentToken",paymentToken.substring(1,paymentToken.length()-1));
 
         JSONObject customer = new JSONObject();
-        customer.put("channelCode","GRAB");
+        customer.put("channelCode",channelCode);
 
         //requestData.put("clientID","S125KJH3ITF323A5S6725134267F4SD2");
         //requestData.put("clientID","E380BEC2BFD727A4B6845133519F3AD7");
