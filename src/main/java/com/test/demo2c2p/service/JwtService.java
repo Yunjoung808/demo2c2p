@@ -49,7 +49,12 @@ public class JwtService {
         // return paymentToken;
     }
 
-    private Map<String, Claim> getDecodedJWT(String responseToken) {
+    public Map<String, Claim> getDecodedJWT(String responseToken) {
+        DecodedJWT jwt = JWT.decode(responseToken);
+        return jwt.getClaims();
+    }
+
+    public Map<String, Claim> getDecodedPayload(String responseToken) {
         DecodedJWT jwt = JWT.decode(responseToken);
         return jwt.getClaims();
     }
