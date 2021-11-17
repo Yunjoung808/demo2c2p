@@ -6,6 +6,9 @@ let drPlaceholder2 = document.getElementById("dropdownMenuButton2");
 
 let currencyCode;
 let paymentChannel;
+let paymentToken;
+let merchantID;
+let invoiceNo;
 
 let desc = document.querySelector(".description > h3").textContent;
 let amt = document.querySelector(".description > h5").textContent;
@@ -19,7 +22,8 @@ let curCode = drPlaceholder1.textContent;
 
 let ran = parseInt(Math.random() * 10000000000);
 
-let g
+let cancBtn = document.querySelector('.canc-btn');
+let inqBtn = document.querySelector('.inq-btn');
 
 let paymentToken = {
   merchantID: "702702000001662",
@@ -55,6 +59,12 @@ let cancelParam = {
   paymentToken: "kSAops9Zwhos8hSTSeLTUaZRFU0dixjVnk7f2UA6UaV+wgb6f9y6NZ9mSHiW6envNwV\/XN+4cfJy56xZqHcN50Zno67F++V1N+IgxsGVTSWCLnMHdQolRmUZHkz8Uec9",
   clientID: "855ca0eeed4248af960bdef71151cd82",
 };
+
+let paymentInquiryParam = {
+  paymentToken: "kSAops9Zwhos8hSTSeLTUaZRFU0dixjVnk7f2UA6UaV+wgb6f9y6NZ9mSHiW6envNwV\/XN+4cfJy56xZqHcN50Zno67F++V1N+IgxsGVTSWCLnMHdQolRmUZHkz8Uec9",
+  merchantID: "702702000001662",
+  invoiceNo: "123451039"
+}
 
 
 // document.querySelector('.modal-desc').textContent = document.querySelector('.modal-desc').textContent + desc;
@@ -129,6 +139,9 @@ function midSet(curCode) {
   }
 }
 
+cancBtn.addEventListener('click', submitCancelParameter);
+inqBtn.addEventListener('click', startPaymentInquiry);
+
 
 function submitResponseParameter(){
   $.ajax({
@@ -163,3 +176,12 @@ function submitRequestParameter() {
         window.location = xhr.getResponseHeader("Location");
       }, 
     });}
+
+    function startPaymentInquiry() {
+      $.ajax({
+        url: encodeURI("/demo2c2p/paymentInquiry"),
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(paymentInquiryParam),
+      });}
+

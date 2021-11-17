@@ -10,7 +10,11 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 @Slf4j
 @Service
@@ -65,6 +69,9 @@ public class HttpService {
         
     }
 
+
+
+    
     private String send(HttpsURLConnection con, JSONObject requestData) throws IOException {
         StringBuffer responseData = new StringBuffer();
 
@@ -85,7 +92,7 @@ public class HttpService {
         return responseData.toString();
     }
 
-    private String getConnection(JSONObject requestData,String endPoint) throws Exception {
+    public String getConnection(JSONObject requestData,String endPoint) throws Exception {
         try
             {
             URL obj = new URL(endPoint);

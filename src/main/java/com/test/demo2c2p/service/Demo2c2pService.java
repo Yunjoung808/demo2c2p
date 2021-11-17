@@ -1,12 +1,18 @@
 package com.test.demo2c2p.service;
 
 import com.test.demo2c2p.api.request.GenerateJWTTokenRequest;
+import com.test.demo2c2p.api.request.PaymentInquiry;
 import com.test.demo2c2p.api.request.CancelRequest;
 import com.test.demo2c2p.api.response.RedirectResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.HashMap;
 import org.json.simple.JSONObject;
@@ -29,6 +35,27 @@ public class Demo2c2pService {
 
 
     }
+
+    public String doPaymentInquiry(PaymentInquiry paymentRequest) throws Exception{
+
+        HashMap<String, Object> payload = makePayloadForPaymentInquiry(paymentRequest);
+        String JWToken = jwtService.getToken(payload);
+        JSONObject requestData = new JSONObject();
+        requestData.put("payload",JWToken);
+        String endPoint = "https://sandbox-pgw.2c2p.com/payment/4.1/paymentToken";
+        String requestPayload = httpService.getConnection(requestData, endPoint);
+
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://sandbox-pgw.2c2p.com/payment/4.1/PaymentInquiry"))
+            .header("Accept", "text/plain")
+            .header("Content-Type", "application/*+json")
+            .method("POST", HttpRequest.BodyPublishers.ofString(requestPayload))
+            .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+        return response.body();
+    }
+
 
     public String sendCancelRequest(CancelRequest cancelRequest) throws Exception{
         String paymentToken = cancelRequest.getPaymentToken();
@@ -61,7 +88,7 @@ public class Demo2c2pService {
 
     }
 
-    private HashMap<String, Object> makePayload(GenerateJWTTokenRequest generateJWTTokenRequest) {
+    public HashMap<String, Object> makePayload(GenerateJWTTokenRequest generateJWTTokenRequest) {
         HashMap<String, Object> payload = new HashMap<>();
         
 
@@ -76,6 +103,14 @@ public class Demo2c2pService {
         //payload.put("paymentChannel", generateJWTTokenRequest.getPaymentChannel());
 
         log.debug("payload to server={},", payload);
+        return payload;
+    }
+
+    public HashMap<String, Object> makePayloadForPaymentInquiry(PaymentInquiry paymentRequest) {
+        HashMap<String, Object> payload = new HashMap<>();
+        payload.put("paymentToken", paymentRequest.getPaymentToken());;
+        payload.put("merchantID", paymentRequest.getMerchantID());
+        payload.put("invoiceNo", paymentRequest.getInvoiceNo());
         return payload;
     }
 
