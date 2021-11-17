@@ -138,7 +138,7 @@ public class Demo2c2pService {
         
 
         String frontendReturnURL = "localhost:8080/frontendredirect";
-        generateJWTTokenRequest.setAmount(50.00);
+        generateJWTTokenRequest.setAmount(1.00);
         payload.put("frontendReturnURL",frontendReturnURL);
         payload.put("merchantID", generateJWTTokenRequest.getMerchantID());
         payload.put("invoiceNo", generateJWTTokenRequest.getInvoiceNo());

@@ -7,5 +7,5 @@ public class PaymentActionRequest {
     private String version;
     private String processType;
     private String merchantID;
-    private String amount = "0.00";
+    private String actionAmount = "0.00";
 }

@@ -57,12 +57,16 @@ function submitCancelParameter() {
   }
 
   function refundAction() {
-    refundParam.invoiceNo = document.getElementById('invoice').value;
-    refundParam.actionAmount = document.getElementById('amount').value;
+    paymentActionParam.invoiceNo = document.getElementById('invoice').value;
+    paymentActionParam.actionAmount = document.getElementById('amount').value;
+    paymentActionParam.processType = "R";
     $.ajax({
-      url: encodeURI("/demo2c2p/refundwhateverblahblah"),
+      url: encodeURI("/demo2c2p/inquiry"),
       type: "POST",
       contentType: "application/json",
-      data: JSON.stringify(refundParam),
+      data: JSON.stringify(paymentActionParam),
+      success: function (data, textStatus, xhr) {
+        window.location = xhr.getResponseHeader("Location");
+      },
     });
   }

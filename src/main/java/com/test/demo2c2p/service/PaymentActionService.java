@@ -18,7 +18,7 @@ public class PaymentActionService {
         String version = paymentActionRequest.getVersion();
         String processType = paymentActionRequest.getProcessType();
         String merchantID = paymentActionRequest.getMerchantID();
-        String amount = paymentActionRequest.getAmount();
+        String actionAmount = paymentActionRequest.getActionAmount();
         //https://developer.2c2p.com/docs/status-inquiry
 
         String toHash;
@@ -26,7 +26,7 @@ public class PaymentActionService {
             toHash = version + merchantID + processType + invoiceNo;
         }
         else if (processType.equals("R")){
-            toHash = version + merchantID + processType + invoiceNo + amount;
+            toHash = version + merchantID + processType + invoiceNo + actionAmount;
         }
         else{
             return "error";
@@ -37,7 +37,7 @@ public class PaymentActionService {
             xml = String.format("<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><hashValue>%s</hashValue></PaymentProcessRequest>",version,merchantID,processType,invoiceNo,hashed);
         }
         else if (processType.equals("R")){
-            xml = String.format("<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><actionAmount>%s</actionAmount><hashValue>%s</hashValue></PaymentProcessRequest>",version,merchantID,processType,invoiceNo,amount,hashed);
+            xml = String.format("<PaymentProcessRequest><version>%s</version><merchantID>%s</merchantID><processType>%s</processType><invoiceNo>%s</invoiceNo><actionAmount>%s</actionAmount><hashValue>%s</hashValue></PaymentProcessRequest>",version,merchantID,processType,invoiceNo,actionAmount,hashed);
         }
         else{
             return "error";
