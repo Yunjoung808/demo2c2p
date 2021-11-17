@@ -26,7 +26,7 @@ let inqBtn = document.querySelector(".inq-btn");
 
 var paymentToken = {
   merchantID: "702702000001662",
-  invoiceNo: ran.toString(),
+  invoiceNo: "",
   description: desc,
   amount: parseFloat(amt).toFixed(2),
   currencyCode: "",
@@ -117,21 +117,27 @@ function midSet(curCode) {
   switch (curCode) {
     case "SGD":
       paymentToken.merchantID = "702702000001670";
+      paymentToken.invoiceNo = "SGD" + ran.toString();
       break;
     case "PHP":
       paymentToken.merchantID = "608608000000685";
+      paymentToken.invoiceNo = "PHP" + ran.toString();
       break;
     case "MYR":
       paymentToken.merchantID = "458458000001107";
+      paymentToken.invoiceNo = "MYR" + ran.toString();
       break;
     case "MMK":
       paymentToken.merchantID = "104104000000550";
+      paymentToken.invoiceNo = "MMK" + ran.toString();
       break;
     case "THB":
       paymentToken.merchantID = "764764000009889";
+      paymentToken.invoiceNo = "THB" + ran.toString();
       break;
     case "VND":
       paymentToken.merchantID = "704704000000046";
+      paymentToken.invoiceNo = "VND" + ran.toString();
       break;
   }
 }

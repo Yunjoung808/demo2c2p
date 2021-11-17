@@ -7,7 +7,7 @@ var cancelParam = {
   
   var paymentActionParam = {
     version: "3.4",
-    merchantID: "702702000001670",
+    merchantID: "458458000001107",
   };
 
 var refundParam = {
@@ -60,6 +60,22 @@ function submitCancelParameter() {
     paymentActionParam.invoiceNo = document.getElementById('invoice').value;
     paymentActionParam.actionAmount = document.getElementById('amount').value;
     paymentActionParam.processType = "R";
+    $.ajax({
+      url: encodeURI("/demo2c2p/inquiry"),
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(paymentActionParam),
+      success: function (data, textStatus, xhr) {
+        window.location = xhr.getResponseHeader("Location");
+      },
+    });
+  }
+
+  function refundStatus() {
+    paymentActionParam.invoiceNo = document.getElementById('invoice').value;
+    paymentActionParam.actionAmount = document.getElementById('amount').value;
+    paymentActionParam.processType = "RS";
+    paymentActionParam.version = "3.8";
     $.ajax({
       url: encodeURI("/demo2c2p/inquiry"),
       type: "POST",
