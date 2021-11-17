@@ -78,7 +78,6 @@ public class Demo2c2pService {
         JSONObject responseJSON = (JSONObject) parser.parse(result);
         String data = responseJSON.get("data").toString();
         return data;
-
     }
 
     public String generateJWTToken(GenerateJWTTokenRequest generateJWTTokenRequest) throws Exception {
@@ -105,7 +104,7 @@ public class Demo2c2pService {
         
 
         String frontendReturnURL = "localhost:8080/frontendredirect";
-        generateJWTTokenRequest.setAmount(0.01);
+        generateJWTTokenRequest.setAmount(50.00);
         payload.put("frontendReturnURL",frontendReturnURL);
         payload.put("merchantID", generateJWTTokenRequest.getMerchantID());
         payload.put("invoiceNo", generateJWTTokenRequest.getInvoiceNo());

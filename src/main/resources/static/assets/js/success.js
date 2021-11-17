@@ -13,8 +13,8 @@ var cancelParam = {
   };
 
 var refundParam = {
-    invoiceNo = "",
-    actionAmount = "",
+    invoiceNo: "",
+    actionAmount: "",
 };
 
 function submitCancelParameter() {
