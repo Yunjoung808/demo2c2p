@@ -25,7 +25,18 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.w3c.dom.*;
+import org.xml.sax.InputSource;
 
+import javax.xml.parsers.*;
+import java.io.*;
+
+import java.io.StringReader;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -47,7 +58,28 @@ public class Demo2c2pService {
 
 
     public String sendPaymentActionRequest(PaymentActionRequest paymentActionRequest) throws Exception{
+        
         String paymentActionResponse = paymentActionService.send(paymentActionRequest);
+        System.out.println(paymentActionResponse);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(new InputSource(new StringReader(paymentActionResponse)));
+        System.out.println("Root element: " + document.getDocumentElement().getNodeName());
+        Element rootElement = document.getDocumentElement();
+        log.debug("child nodes = {}",rootElement.getChildNodes());
+
+        // log.debug("nodeLIst = {}",nodeList.item(0));
+        // for (int temp = 0; temp < nodeList.getLength(); temp++) {
+        //     org.w3c.dom.Node node = nodeList.item(temp);
+        //     System.out.println("\nCurrent element: " + node.getNodeName());
+        //     if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+        //         Element element = (Element) node;
+        //         System.out.println("Name: " + element.getElementsByTagName("name").item(0).getTextContent());
+        //         System.out.println("Key Value: " + element.getElementsByTagName("keyvalue").item(0).getTextContent());
+        //     }
+        // }
+        // log.debug("document = {}",document);
+
         return paymentActionResponse;
     }
 
@@ -91,17 +123,17 @@ public class Demo2c2pService {
         HashMap<String, Object> payload = makePayload(generateJWTTokenRequest);
         String token = jwtService.getToken(payload);
         String requestData = httpService.sendRequest(token);
-        String url = jwtService.process(requestData);
-        return url;
-        // String paymentToken = jwtService.process(requestData);
-        // String channelCode = generateJWTTokenRequest.getPaymentChannel().get(0);
-        // String result = httpService.doPayment(paymentToken,channelCode);
-        // JSONParser parser = new JSONParser();
-        // JSONObject responseJSON = (JSONObject) parser.parse(result);
-        // log.debug("\nresult = {}\n\n",result);
-        // String data = responseJSON.get("data").toString();
+        // String url = jwtService.process(requestData);
+        // return url;
+        String paymentToken = jwtService.process(requestData);
+        String channelCode = generateJWTTokenRequest.getPaymentChannel().get(0);
+        String result = httpService.doPayment(paymentToken,channelCode);
+        JSONParser parser = new JSONParser();
+        JSONObject responseJSON = (JSONObject) parser.parse(result);
+        log.debug("\nresult = {}\n\n",result);
+        String data = responseJSON.get("data").toString();
 
-        // return data;
+        return data;
 
     }
 

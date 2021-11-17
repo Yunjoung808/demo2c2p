@@ -34,18 +34,18 @@ public class Demo2C2PController {
     @PostMapping("/generateJWTToken")
     public ResponseEntity<RestResponse> requestTo2c2p(@RequestBody GenerateJWTTokenRequest generateJWTTokenRequest) throws Exception {
         String data = demo2c2pService.generateJWTToken(generateJWTTokenRequest);
-        /*URI redirectUri = new URI(data);
+        URI redirectUri = new URI(data);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(redirectUri);
         URL url = new URL(data);
         URLConnection conn = url.openConnection(); 
-        */
-        String newurl = data.substring(1,data.length()-1);
-        URI redirectUri = new URI(newurl);
-        System.out.println("redirectUri");
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(redirectUri);
         return new ResponseEntity<>(headers,HttpStatus.OK);
+        // String newurl = data.substring(1,data.length()-1);
+        // URI redirectUri = new URI(newurl);
+        // System.out.println("redirectUri");
+        // HttpHeaders headers = new HttpHeaders();
+        // headers.setLocation(redirectUri);
+        // return new ResponseEntity<>(headers,HttpStatus.OK);
 
 
     }
