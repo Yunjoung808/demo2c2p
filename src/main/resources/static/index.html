@@ -63,19 +63,19 @@
               <!-- <li class="gl"><a class="dropdown-item" href="#">GOOGLEPAY - Google Pay</a></li> -->
               <li class="SGD THB"><a class="dropdown-item" href="#">ALIPAY - Alipay</a></li>
               <!-- <li class="gl"><a class="dropdown-item" href="#">PAYPAL - PayPal Wallet</a></li> -->
-              <li class="THB SGD MYR"><a class="dropdown-item" href="#">SHPPAY - ShopeePay Wallet</a></li>
+              <!-- <li class="THB SGD MYR"><a class="dropdown-item" href="#">SHPPAY - ShopeePay Wallet</a></li> -->
               <li class="SGD MYR PHP"><a class="dropdown-item" href="#">GRAB - Grab</a></li>
               <li class="THB"><a class="dropdown-item" href="#">LINE - Line Pay</a></li>
               <!-- <li class="THB"><a class="dropdown-item" href="#">SPA - SPA Wallet</a></li> -->
               <li class="THB"><a class="dropdown-item" href="#">TRUEMONEY - True Money</a></li>
-              <li class="THB"><a class="dropdown-item" href="#">DOLFIN - Dolphin</a></li>
+              <!-- <li class="THB"><a class="dropdown-item" href="#">DOLFIN - Dolphin</a></li> -->
               <!-- <li class="SGD"><a class="dropdown-item" href="#">DASH - Singtel Dash</a></li> -->
               <li class="SGD THB"><a class="dropdown-item" href="#">WECHAT - WeChat</a></li>
               <!-- <li class="SGD"><a class="dropdown-item" href="#">PAYANYONE - OCBC PayAnyOne</a></li> -->
               <li class="MYR"><a class="dropdown-item" href="#">TNG - Touch N Go</a></li>
               <li class="MYR"><a class="dropdown-item" href="#">BOOST - BOOST</a></li>
-              <li class="MMK"><a class="dropdown-item" href="#">KPY - KbzPay</a></li>
-              <li class="MMK"><a class="dropdown-item" href="#">CBY - CBPay</a></li>
+              <!-- <li class="MMK"><a class="dropdown-item" href="#">KPY - KbzPay</a></li>
+              <li class="MMK"><a class="dropdown-item" href="#">CBY - CBPay</a></li> -->
               <!-- <li class="MMK"><a class="dropdown-item" href="#">WAVE - Wave Pay</a></li> -->
               <li class="MMK"><a class="dropdown-item" href="#">OKDOLLAR - OK Dollar</a></li>
               <!-- <li class="MMK"><a class="dropdown-item" href="#">MTPAY - MyTel Pay</a></li>
@@ -90,22 +90,31 @@
         <button type="button" id="checkout-button" data-bs-toggle="modal" data-bs-target="#myModal">구매</button>      
     </section>
     <div class="modal fade" tabindex="-1" id="myModal">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-fullscreen">
           <div class="modal-content">
             <div class="modal-header">
               <img src="./assets/img/logo.PNG" alt="Eximbay logo">
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">           
-              <button class="btn btn-primary btn-2C2P" onclick="submitRequestParameter()" type="button">   
-              2C2P
-              </button>   
+            <div class="modal-body">              
+              
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" />
+              
+                <label for="email">E-mail</label>
+                <input type="text" name="email" id="email" />
+              
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone" />
+                           
               <!-- <button class="btn btn-primary" onclick="submitResponseParameter()" type="button">   
                 redirect
               </button>      -->
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary btn-cls" data-bs-dismiss="modal">Close</button>              
+              <button class="btn btn-primary btn-2C2P" onclick="submitRequestParameter()" type="button">   
+                Pay
+                </button>
             </div>
           </div>
         </div>

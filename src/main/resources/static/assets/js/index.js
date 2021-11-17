@@ -19,6 +19,8 @@ let curCode = drPlaceholder1.textContent;
 
 let ran = parseInt(Math.random() * 10000000000);
 
+let g
+
 let paymentToken = {
   merchantID: "702702000001662",
   invoiceNo: ran.toString(),
@@ -26,19 +28,21 @@ let paymentToken = {
   amount: parseFloat(amt).toFixed(2),
   currencyCode: "",
   paymentChannel: [""],
-  // doPayment: {
-  //   paymentToken: "",
-  //   responseReturnUrl: "localhost:4242/success.html",
-  //   payment: {
-  //     code: {
-  //       channelCode: ""
-  //     },
-  //     data: {
-  //       name: "Test",
-  //       email: "testuser@2c2p.com",
-  //     }
-  //   }
-  // }
+  doPayment: {
+    paymentToken: "",
+    responseReturnUrl: "localhost:8080/success.html",
+    payment: {
+      code: {
+        channelCode: ""
+      },
+      data: {
+        name: "",
+        email: "",
+        mobileNo: "",
+        accountNo: "",
+      }
+    }
+  }
 };
 let responseParam = {
   invoiceNo: "12345",
@@ -84,7 +88,7 @@ for (const i of drul2List) {
     drPlaceholder2.textContent = ctx;
     paymentToken.paymentChannel = [];
     paymentToken.paymentChannel.push(ctx);
-    //paymentToken.doPayment.payment.code.channelCode = ctx;
+    paymentToken.doPayment.payment.code.channelCode = ctx;
   });
 }
 
