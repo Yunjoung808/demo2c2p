@@ -55,19 +55,6 @@ let responseParam = {
   respDesc: "Transaction is complete you are finished",
 };
 
-let cancelParam = {
-  paymentToken:
-    "kSAops9Zwhos8hSTSeLTUaZRFU0dixjVnk7f2UA6UaV+wgb6f9y6NZ9mSHiW6envNwV/XN+4cfJy56xZqHcN50Zno67F++V1N+IgxsGVTSWCLnMHdQolRmUZHkz8Uec9",
-  clientID: "855ca0eeed4248af960bdef71151cd82",
-};
-
-let paymentInquiryParam = {
-  paymentToken:
-    "kSAops9Zwhos8hSTSeLTUaZRFU0dixjVnk7f2UA6UaV+wgb6f9y6NZ9mSHiW6envNwV/XN+4cfJy56xZqHcN50Zno67F++V1N+IgxsGVTSWCLnMHdQolRmUZHkz8Uec9",
-  merchantID: "702702000001662",
-  invoiceNo: "123451039",
-};
-
 // document.querySelector('.modal-desc').textContent = document.querySelector('.modal-desc').textContent + desc;
 // document.querySelector('.modal-amt').textContent = document.querySelector('.modal-amt').textContent + amt2;
 // document.querySelector('.modal-invo').textContent = document.querySelector('.modal-invo').textContent + paymentToken.invoiceNo;
@@ -140,9 +127,6 @@ function midSet(curCode) {
   }
 }
 
-cancBtn.addEventListener("click", submitCancelParameter);
-inqBtn.addEventListener("click", startPaymentInquiry);
-
 function submitResponseParameter() {
   $.ajax({
     url: encodeURI("/demo2c2p/paymentconfirmation"),
@@ -160,7 +144,6 @@ function submitRequestParameter() {
   paymentToken.doPayment.payment.data.email = document.getElementById("email").value;
   paymentToken.doPayment.payment.data.mobileNo = document.getElementById("phone").value;
   paymentToken.doPayment.payment.data.accountNo = document.getElementById("account").value;
-  alert(paymentToken.doPayment.payment.data.name);
   $.ajax({
     url: encodeURI("/demo2c2p/generateJWTToken"),
     type: "POST",
@@ -172,23 +155,3 @@ function submitRequestParameter() {
   });
 }
 
-function submitCancelParameter() {
-  $.ajax({
-    url: encodeURI("/demo2c2p/cancel"),
-    type: "POST",
-    contentType: "application/json",
-    data: JSON.stringify(cancelParam),
-    success: function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader("Location");
-    },
-  });
-}
-
-function startPaymentInquiry() {
-  $.ajax({
-    url: encodeURI("/demo2c2p/paymentInquiry"),
-    type: "POST",
-    contentType: "application/json",
-    data: JSON.stringify(paymentInquiryParam),
-  });
-}
