@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 
 @Controller
@@ -82,9 +83,17 @@ public class Demo2C2PController {
     @PostMapping("/inquiry")
     public ResponseEntity<RestResponse> getInquiry(@RequestBody PaymentActionRequest paymentActionRequest) throws Exception{
         System.out.println("i'm heree");
-        String result = demo2c2pService.sendPaymentActionRequest(paymentActionRequest);
-        System.out.println(result);
+        HashMap<String,String> result = demo2c2pService.sendPaymentActionRequest(paymentActionRequest);
         HttpHeaders headers = new HttpHeaders();
+        if (result.get("respCode").equals("00")){
+            URI redirectUri = new URI("/request_success.html");
+            headers.setLocation(redirectUri);
+        }
+        else{
+            URI redirectUri = new URI("/request_fail.html");
+            headers.setLocation(redirectUri);
+        }
+        
         return new ResponseEntity<>(headers,HttpStatus.OK);
     }
 

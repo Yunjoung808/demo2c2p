@@ -27,7 +27,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-
+import com.test.demo2c2p.api.response.PaymentActionResponse;
 import javax.xml.parsers.*;
 import java.io.*;
 
@@ -57,30 +57,26 @@ public class Demo2c2pService {
     }
 
 
-    public String sendPaymentActionRequest(PaymentActionRequest paymentActionRequest) throws Exception{
+    public HashMap<String,String> sendPaymentActionRequest(PaymentActionRequest paymentActionRequest) throws Exception{
         
         String paymentActionResponse = paymentActionService.send(paymentActionRequest);
+        PaymentActionResponse response = new PaymentActionResponse();
         System.out.println(paymentActionResponse);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new InputSource(new StringReader(paymentActionResponse)));
-        System.out.println("Root element: " + document.getDocumentElement().getNodeName());
-        Element rootElement = document.getDocumentElement();
-        log.debug("child nodes = {}",rootElement.getChildNodes());
+        document.getDocumentElement().normalize();
+        NodeList nList = document.getElementsByTagName("*");
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (!nNode.getNodeName().equals("PaymentProcessResponse")){
+                    response.map.put(nNode.getNodeName(),nNode.getTextContent());
+                }
+            }
+        
+        
 
-        // log.debug("nodeLIst = {}",nodeList.item(0));
-        // for (int temp = 0; temp < nodeList.getLength(); temp++) {
-        //     org.w3c.dom.Node node = nodeList.item(temp);
-        //     System.out.println("\nCurrent element: " + node.getNodeName());
-        //     if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-        //         Element element = (Element) node;
-        //         System.out.println("Name: " + element.getElementsByTagName("name").item(0).getTextContent());
-        //         System.out.println("Key Value: " + element.getElementsByTagName("keyvalue").item(0).getTextContent());
-        //     }
-        // }
-        // log.debug("document = {}",document);
-
-        return paymentActionResponse;
+        return response.map;
     }
 
 

@@ -50,6 +50,9 @@ function submitCancelParameter() {
       type: "POST",
       contentType: "application/json",
       data: JSON.stringify(paymentInquiryParam),
+      success: function (data, textStatus, xhr) {
+        window.location = xhr.getResponseHeader("Location");
+      },
     });
   }
 
