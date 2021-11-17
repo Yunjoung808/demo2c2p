@@ -30,13 +30,11 @@ public class RedirectController {
     @RequestMapping("/redirected")
     public String returnconf(Model model) throws Exception{
         model.addAttribute("wut","wut");
-        System.out.println("i'm hereaaaaaaaa");
         return "success";
     }
 
     @RequestMapping("/frontendredirect")
     public String returnconfs() throws Exception{
-        System.out.println("i'm heredd");
         return "success";
     }
 }

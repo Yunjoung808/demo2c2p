@@ -5,25 +5,38 @@ var cancelParam = {
     invoiceNo: "",
   };
   
-  var paymentInquiryParam = {
-    paymentToken:
-      "kSAops9Zwhos8hSTSeLTUaZRFU0dixjVnk7f2UA6UaV+wgb6f9y6NZ9mSHiW6envNwV/XN+4cfJy56xZqHcN50Zno67F++V1N+IgxsGVTSWCLnMHdQolRmUZHkz8Uec9",
-    merchantID: "702702000001662",
-    invoiceNo: "123451039",
+  var paymentActionParam = {
+    version: "3.4",
+    merchantID: "702702000001670",
   };
 
 var refundParam = {
     invoiceNo: "",
-    actionAmount: "",
+    actionAmount:"",
 };
 
 function submitCancelParameter() {
-    cancelParam.invoiceNo = document.getElementById('invoice').value;
+    paymentActionParam.invoiceNo = document.getElementById('invoice').value;
+    paymentActionParam.processType = "V";
     $.ajax({
-      url: encodeURI("/demo2c2p/cancel"),
+      url: encodeURI("/demo2c2p/inquiry"),
       type: "POST",
       contentType: "application/json",
-      data: JSON.stringify(cancelParam),
+      data: JSON.stringify(paymentActionParam),
+      success: function (data, textStatus, xhr) {
+        window.location = xhr.getResponseHeader("Location");
+      },
+    });
+  }
+
+  function submitInquiryParameter(){
+    paymentActionParam.invoiceNo = document.getElementById('invoice').value;
+    paymentActionParam.processType = "I";
+    $.ajax({
+      url: encodeURI("/demo2c2p/inquiry"),
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(paymentActionParam),
       success: function (data, textStatus, xhr) {
         window.location = xhr.getResponseHeader("Location");
       },
@@ -50,7 +63,3 @@ function submitCancelParameter() {
       data: JSON.stringify(refundParam),
     });
   }
-
-document.querySelector('.canc-btn').addEventListener('click', submitCancelParameter);
-document.querySelector('.inq-btn').addEventListener('click', startPaymentInquiry);
-document.querySelector('.ref-btn').addEventListener('click', refundAction);

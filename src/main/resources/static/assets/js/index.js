@@ -55,6 +55,14 @@ let responseParam = {
   respDesc: "Transaction is complete you are finished",
 };
 
+let paymentActionParam = {
+  invoiceNo: "236057792",
+  version: "3.4",
+  processType: "V",
+  merchantID: "702702000001670",
+  amount: "0.0",
+};
+
 // document.querySelector('.modal-desc').textContent = document.querySelector('.modal-desc').textContent + desc;
 // document.querySelector('.modal-amt').textContent = document.querySelector('.modal-amt').textContent + amt2;
 // document.querySelector('.modal-invo').textContent = document.querySelector('.modal-invo').textContent + paymentToken.invoiceNo;
@@ -189,6 +197,15 @@ function submitResponseParameter() {
       window.location = xhr.getResponseHeader("Location");
     },
   });
+}
+
+function submitPaymentActionParameter(){
+  $.ajax({
+    url: encodeURI("/demo2c2p/inquiry"),
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(paymentActionParam),
+  }); 
 }
 
 function submitRequestParameter() {

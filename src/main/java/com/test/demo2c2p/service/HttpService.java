@@ -15,6 +15,7 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Service
@@ -30,6 +31,11 @@ public class HttpService {
         return getConnection(requestData,endPoint);
         
     }
+
+    public String sendPaymentActionAPIRequest(String payload) throws Exception {
+        return getPaymentActionConnection(payload,"https://demo2.2c2p.com/2C2PFrontend/PaymentActionV2/PaymentProcess.aspx");
+    }
+
 
     public String doPayment(String paymentToken,String channelCode) throws Exception {
         log.info("=========================about to start payment ==============");
@@ -70,6 +76,41 @@ public class HttpService {
     }
 
 
+    private String getPaymentActionConnection(String payload,String endPoint) throws Exception {
+        try
+            {
+            String urlParameters = "paymentRequest=" + payload;
+            byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+            int postDataLength = postData.length;
+            URL obj = new URL(endPoint);
+            HttpsURLConnection conn = (HttpsURLConnection) obj.openConnection();
+
+            conn.setDoOutput(true);
+            conn.setInstanceFollowRedirects(false);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+            conn.setRequestProperty("charset", "utf-8");
+            conn.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
+            conn.setUseCaches(false);
+            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+            wr.write(postData);
+
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            return response.toString();
+
+            }catch(Exception e){
+            e.printStackTrace();
+            }
+        return "error";
+    }
 
     
     private String send(HttpsURLConnection con, JSONObject requestData) throws IOException {
