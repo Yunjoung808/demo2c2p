@@ -87,6 +87,7 @@ for (const i of drul2List) {
     paymentToken.paymentChannel = [];
     paymentToken.paymentChannel.push(ctx);
     paymentToken.doPayment.payment.code.channelCode = ctx;
+    modalFix(ctx);
   });
 }
 
@@ -127,6 +128,57 @@ function midSet(curCode) {
   }
 }
 
+function modalFix(ctx) {
+  let a = document.querySelector(".modal-body").querySelectorAll("label");
+  let b = document.querySelector(".modal-body").querySelectorAll("input");
+
+  for (const i of a) {
+    if (i.textContent == "Phone") {
+      i.style.display = "none";
+    }
+  }
+  for (const i of b) {
+    if (i.id == "phone") {
+      i.style.display = "none";
+    }
+  }
+
+  for (const i of a) {
+    if (i.textContent == "Account") {
+      i.style.display = "none";
+    }
+  }
+  for (const i of b) {
+    if (i.id == "account") {
+      i.style.display = "none";
+    }
+  }
+
+  if (ctx == "GCASH" || ctx == "LINE" || ctx == "TRUEMONEY") {
+    for (const i of a) {
+      if (i.textContent == "Phone") {
+        i.style.display = "block";
+      }
+    }
+    for (const i of b) {
+      if (i.id == "phone") {
+        i.style.display = "block";
+      }
+    }
+  } else if (ctx == "OKDOLLAR") {
+    for (const i of a) {
+      if (i.textContent == "Account") {
+        i.style.display = "block";
+      }
+    }
+    for (const i of b) {
+      if (i.id == "account") {
+        i.style.display = "block";
+      }
+    }
+  }
+}
+
 function submitResponseParameter() {
   $.ajax({
     url: encodeURI("/demo2c2p/paymentconfirmation"),
@@ -140,10 +192,14 @@ function submitResponseParameter() {
 }
 
 function submitRequestParameter() {
-  paymentToken.doPayment.payment.data.name = document.getElementById("name").value;
-  paymentToken.doPayment.payment.data.email = document.getElementById("email").value;
-  paymentToken.doPayment.payment.data.mobileNo = document.getElementById("phone").value;
-  paymentToken.doPayment.payment.data.accountNo = document.getElementById("account").value;
+  paymentToken.doPayment.payment.data.name =
+    document.getElementById("name").value;
+  paymentToken.doPayment.payment.data.email =
+    document.getElementById("email").value;
+  paymentToken.doPayment.payment.data.mobileNo =
+    document.getElementById("phone").value;
+  paymentToken.doPayment.payment.data.accountNo =
+    document.getElementById("account").value;
   $.ajax({
     url: encodeURI("/demo2c2p/generateJWTToken"),
     type: "POST",
@@ -154,4 +210,3 @@ function submitRequestParameter() {
     },
   });
 }
-

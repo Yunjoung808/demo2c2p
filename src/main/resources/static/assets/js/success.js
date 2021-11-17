@@ -50,3 +50,7 @@ function submitCancelParameter() {
       data: JSON.stringify(refundParam),
     });
   }
+
+document.querySelector('.canc-btn').addEventListener('click', submitCancelParameter);
+document.querySelector('.inq-btn').addEventListener('click', startPaymentInquiry);
+document.querySelector('.ref-btn').addEventListener('click', refundAction);
