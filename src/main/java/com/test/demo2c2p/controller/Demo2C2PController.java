@@ -70,8 +70,9 @@ public class Demo2C2PController {
         return new ResponseEntity<>(headers,HttpStatus.OK);
     }
 
-    @PostMapping("/payemntInquiry")
+    @PostMapping("/paymentInquiry")
     public ResponseEntity<RestResponse> payemntInquiry(@RequestBody PaymentInquiry paymentRequest) throws Exception{
+        System.out.println(paymentRequest);
         String result = demo2c2pService.doPaymentInquiry(paymentRequest);
         System.out.println("paymentInquiryResult::"+result);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -87,7 +88,7 @@ public class Demo2C2PController {
     }
     */
 
-    @GetMapping("/redirected")
+    @PostMapping("/redirected")
     public ModelAndView whaaaaa() throws Exception{
         System.out.println("i'm hereasss");
         ModelAndView mv = new ModelAndView();

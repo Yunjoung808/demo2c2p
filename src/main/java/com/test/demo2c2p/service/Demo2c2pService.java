@@ -2,6 +2,11 @@ package com.test.demo2c2p.service;
 
 import com.test.demo2c2p.api.request.GenerateJWTTokenRequest;
 import com.test.demo2c2p.api.request.PaymentInquiry;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.test.demo2c2p.api.request.CancelRequest;
 import com.test.demo2c2p.api.response.RedirectResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +20,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -37,23 +44,28 @@ public class Demo2c2pService {
     }
 
     public String doPaymentInquiry(PaymentInquiry paymentRequest) throws Exception{
-
+        System.out.println("doPaymentInquiry");
+        //1.payload만들기
         HashMap<String, Object> payload = makePayloadForPaymentInquiry(paymentRequest);
+
+        //2.JWT토큰 만들기
         String JWToken = jwtService.getToken(payload);
+
+        //3. paymentInquiry 로 전송
         JSONObject requestData = new JSONObject();
         requestData.put("payload",JWToken);
-        String endPoint = "https://sandbox-pgw.2c2p.com/payment/4.1/paymentToken";
+        String endPoint = "https://sandbox-pgw.2c2p.com/payment/4.1/PaymentInquiry";
         String requestPayload = httpService.getConnection(requestData, endPoint);
+        System.out.println("requestPayload::"+requestPayload);
+       
+        //4.decode requestPayload
+        // Map<String, Claim> result = jwtService.getDecodedPayload(requestPayload);
 
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("https://sandbox-pgw.2c2p.com/payment/4.1/PaymentInquiry"))
-            .header("Accept", "text/plain")
-            .header("Content-Type", "application/*+json")
-            .method("POST", HttpRequest.BodyPublishers.ofString(requestPayload))
-            .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-        return response.body();
+        // System.out.println(result);
+        
+
+      
+        return "requestPayload";
     }
 
 
