@@ -13,12 +13,43 @@ public class PaymentActionService {
     private final CodecService codecService;
     private final HttpService httpService;
 
+    private String selectMerchant(String invoiceNo){
+        int invoiceStart = 0;
+        int invoiceEnd = 3;
+        String country = invoiceNo.substring(invoiceStart,invoiceEnd);
+        String merchantID;
+        switch (country) {
+            case "SGD":
+              merchantID = "702702000001670";
+              break;
+            case "PHP":
+              merchantID = "608608000000685";
+              break;
+            case "MYR":
+              merchantID = "458458000001107";
+              break;
+            case "MMK":
+              merchantID = "104104000000550";
+              break;
+            case "THB":
+              merchantID = "764764000009889";
+              break;
+            case "VND":
+              merchantID = "704704000000046";
+              break;
+
+            default:
+                merchantID ="does not exist";
+        }
+        return merchantID;
+    }
+
     public String send(PaymentActionRequest paymentActionRequest) throws Exception{
         String invoiceNo = paymentActionRequest.getInvoiceNo();
         String version = paymentActionRequest.getVersion();
         String processType = paymentActionRequest.getProcessType();
-        String merchantID = paymentActionRequest.getMerchantID();
         String actionAmount = paymentActionRequest.getActionAmount();
+        String merchantID = selectMerchant(invoiceNo);
         //https://developer.2c2p.com/docs/status-inquiry
 
         String toHash;
