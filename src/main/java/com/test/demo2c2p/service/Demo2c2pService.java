@@ -1,6 +1,7 @@
 package com.test.demo2c2p.service;
 
 import com.test.demo2c2p.api.request.GenerateJWTTokenRequest;
+import com.test.demo2c2p.api.request.PaymentActionRequest;
 import com.test.demo2c2p.api.request.PaymentInquiry;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -32,6 +33,7 @@ public class Demo2c2pService {
 
     private final JwtService jwtService;
     private final HttpService httpService;
+    private final PaymentActionService paymentActionService;
 
     public void parseDetails(RedirectResponse redirectResponse) throws Exception{
         String invoiceNo = redirectResponse.getInvoiceNo();
@@ -42,6 +44,13 @@ public class Demo2c2pService {
 
 
     }
+
+
+    public String sendPaymentActionRequest(PaymentActionRequest paymentActionRequest) throws Exception{
+        String paymentActionResponse = paymentActionService.send(paymentActionRequest);
+        return paymentActionResponse;
+    }
+
 
     public String doPaymentInquiry(PaymentInquiry paymentRequest) throws Exception{
         System.out.println("doPaymentInquiry");
@@ -62,9 +71,6 @@ public class Demo2c2pService {
         // Map<String, Claim> result = jwtService.getDecodedPayload(requestPayload);
 
         // System.out.println(result);
-        
-
-      
         return "requestPayload";
     }
 
