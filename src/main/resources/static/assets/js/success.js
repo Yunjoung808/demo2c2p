@@ -2,6 +2,7 @@ var cancelParam = {
     paymentToken:
       "kSAops9Zwhos8hSTSeLTUaZRFU0dixjVnk7f2UA6UaV+wgb6f9y6NZ9mSHiW6envNwV/XN+4cfJy56xZqHcN50Zno67F++V1N+IgxsGVTSWCLnMHdQolRmUZHkz8Uec9",
     clientID: "855ca0eeed4248af960bdef71151cd82",
+    invoiceNo: "",
   };
   
   var paymentInquiryParam = {
@@ -11,8 +12,13 @@ var cancelParam = {
     invoiceNo: "123451039",
   };
 
+var refundParam = {
+    invoiceNo = "",
+    actionAmount = "",
+};
 
 function submitCancelParameter() {
+    cancelParam.invoiceNo = document.getElementById('invoice').value;
     $.ajax({
       url: encodeURI("/demo2c2p/cancel"),
       type: "POST",
@@ -31,5 +37,16 @@ function submitCancelParameter() {
       type: "POST",
       contentType: "application/json",
       data: JSON.stringify(paymentInquiryParam),
+    });
+  }
+
+  function refundAction() {
+    refundParam.invoiceNo = document.getElementById('invoice').value;
+    refundParam.actionAmount = document.getElementById('amount').value;
+    $.ajax({
+      url: encodeURI("/demo2c2p/refundwhateverblahblah"),
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(refundParam),
     });
   }

@@ -14,28 +14,34 @@
       <p>Payment Succeeded!</p>
       <button class="suc-btn" onclick="window.location.href = '/';">
         HOME
-    </button>
-    <label for="invoice">Invoice Number: </label>
-    <input
-      type="text"
-      name="invoice"
-      id="invoice"
-    />
+      </button>
+      <label for="invoice">Invoice Number: </label>
+      <input type="text" name="invoice" id="invoice" />
+      <label for="amount">Amount: </label>
+      <input type="text" name="amount" id="amount" />
       <button
-      class="suc-btn canc-btn"
-      type="button"
-      style="background-color: red"
-      onclick="submitCancelParameter()"
+        class="suc-btn canc-btn"
+        type="button"
+        style="background-color: red"
+        onclick="submitCancelParameter()"
       >
-      Payment Cancel
-    </button>
-    <button
-    class="suc-btn inq-btn"
+        Payment Cancel
+      </button>
+      <button
+        class="suc-btn inq-btn"
         style="background-color: green"
         onclick="startPaymentInquiry()"
         type="button"
       >
         Payment Inquiry
+      </button>
+      <button
+        class="suc-btn inq-btn"
+        style="background-color: black"
+        onclick="refundAction()"
+        type="button"
+      >
+        Payment Refund
       </button>
     </section>
   </body>
