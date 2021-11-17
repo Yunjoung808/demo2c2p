@@ -19,7 +19,7 @@ let btn_2C2P = document.querySelector(".btn-2C2P");
 
 let curCode = drPlaceholder1.textContent;
 
-let ran = parseInt(Math.random() * 10000000000);
+let ran = parseInt(Math.random() * 100000000);
 
 let cancBtn = document.querySelector(".canc-btn");
 let inqBtn = document.querySelector(".inq-btn");
