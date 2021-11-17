@@ -4,6 +4,7 @@ import com.test.demo2c2p.api.response.RestResponse;
 
 import com.test.demo2c2p.api.request.CancelRequest;
 import com.test.demo2c2p.api.request.GenerateJWTTokenRequest;
+import com.test.demo2c2p.api.request.PaymentInquiry;
 import com.test.demo2c2p.service.Demo2c2pService;
 import com.test.demo2c2p.api.response.RedirectResponse;
 import lombok.RequiredArgsConstructor;
@@ -67,6 +68,13 @@ public class Demo2C2PController {
         headers.setLocation(redirectUri);
         System.out.println("im here");
         return new ResponseEntity<>(headers,HttpStatus.OK);
+    }
+
+    @PostMapping("/payemntInquiry")
+    public ResponseEntity<RestResponse> payemntInquiry(@RequestBody PaymentInquiry paymentRequest) throws Exception{
+        String result = demo2c2pService.doPaymentInquiry(paymentRequest);
+        System.out.println("paymentInquiryResult::"+result);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 /*
