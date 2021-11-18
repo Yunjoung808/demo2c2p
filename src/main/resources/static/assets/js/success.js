@@ -75,7 +75,6 @@ function submitCancelParameter() {
     paymentActionParam.invoiceNo = document.getElementById('invoice').value;
     paymentActionParam.actionAmount = document.getElementById('amount').value;
     paymentActionParam.processType = "RS";
-    paymentActionParam.version = "3.8";
     $.ajax({
       url: encodeURI("/demo2c2p/inquiry"),
       type: "POST",

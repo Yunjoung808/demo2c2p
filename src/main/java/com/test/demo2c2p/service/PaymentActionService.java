@@ -49,8 +49,9 @@ public class PaymentActionService {
         String version = paymentActionRequest.getVersion();
         String processType = paymentActionRequest.getProcessType();
         String actionAmount = paymentActionRequest.getActionAmount();
+        String jsMerchantID = paymentActionRequest.getMerchantID();
         String merchantID = selectMerchant(invoiceNo);
-        merchantID = (merchantID.equals("ND")) ? (merchantID) : "702702000001670";
+        merchantID = (merchantID.equals("ND")) ? (jsMerchantID) : merchantID;
         //https://developer.2c2p.com/docs/status-inquiry
 
         String toHash;
