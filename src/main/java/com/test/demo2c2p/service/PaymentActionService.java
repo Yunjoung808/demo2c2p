@@ -39,7 +39,7 @@ public class PaymentActionService {
               break;
 
             default:
-                merchantID ="does not exist";
+                merchantID ="ND";
         }
         return merchantID;
     }
@@ -50,6 +50,7 @@ public class PaymentActionService {
         String processType = paymentActionRequest.getProcessType();
         String actionAmount = paymentActionRequest.getActionAmount();
         String merchantID = selectMerchant(invoiceNo);
+        merchantID = (merchantID.equals("ND")) ? (merchantID) : "702702000001670";
         //https://developer.2c2p.com/docs/status-inquiry
 
         String toHash;
